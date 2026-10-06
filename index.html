@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light">
+<meta name="theme-color" content="#FDFAFB">
+<meta name="darkreader-lock">
+<meta name="darkreader" content="none">
+<title>Ahmed & Aya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light only;
+  --blush:#FFFDFD; --cream:#FAF6F8; --plum:#4A1B2D; --plum-deep:#3D1222;
+  --dusty:#D8829D; --dusty2:#E093AB; --leaf:#8A9A65; --leaf2:#A3B18A;
+  --gold:#C9A15B; --glass:#FFFFFFCC;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  box-sizing:border-box;
+}
+*{box-sizing:border-box; margin:0; padding:0; forced-color-adjust:none;}
+html{scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px); background:#FDFAFB !important; color-scheme:light !important;}
+body{
+  min-height:100%;
+  background:#FDFAFB !important;
+  color:var(--plum-deep);
+  font-family:'Montserrat',sans-serif;
+  overflow-x:hidden;
+  position:relative;
+  color-scheme:light !important;
+}
+.corner{position:fixed; width:220px; height:220px; opacity:.55; pointer-events:none; z-index:0;}
+.corner.tl{top:-40px; left:-40px; background:radial-gradient(circle at 30% 30%, var(--dusty2)40, transparent 70%);}
+.corner.br{bottom:-40px; right:-40px; background:radial-gradient(circle at 70% 70%, var(--leaf2)40, transparent 70%);}
+
+#petals{position:fixed; inset:0; pointer-events:none; z-index:1;}
+
+.wrap{position:relative; z-index:2; max-width:760px; margin:0 auto; padding:64px 22px 120px;}
+
+.hero{text-align:center; padding-top:20px;}
+.fade-up{opacity:0; transform:translateY(28px); transition:opacity .9s ease, transform .9s ease;}
+.fade-up.in{opacity:1; transform:translateY(0);}
+
+.kicker{
+  font-family:'Cormorant Garamond',serif; font-style:italic; letter-spacing:.12em;
+  color:var(--dusty); font-size:15px; text-transform:uppercase;
+}
+.names{
+  font-family:'Playfair Display', serif; font-style:italic; font-weight:600;
+  font-size:clamp(40px,9vw,68px);
+  color:var(--plum); margin:10px 0 4px; line-height:1.15;
+}
+.tagline{
+  font-family:'Playfair Display',serif; font-style:italic; font-weight:500;
+  font-size:clamp(16px,3vw,20px); color:var(--plum-deep); opacity:.85; margin-bottom:34px;
+}
+
+.photo-frame{
+  width:min(320px,80vw); margin:0 auto 30px;
+}
+.photo-frame img{
+  display:block; width:100%; height:auto;
+}
+
+.divider{
+  width:120px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin:32px auto;
+}
+
+.glass{
+  background:var(--glass); backdrop-filter:blur(6px);
+  border:1px solid rgba(201,161,91,.4); border-radius:18px;
+  box-shadow:0 8px 28px rgba(74,27,45,.08);
+}
+
+.section-title{
+  font-family:'Playfair Display',serif; font-weight:600; font-size:26px;
+  color:var(--plum); text-align:center; margin-bottom:22px; letter-spacing:.02em;
+}
+
+.countdown{display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin:36px 0;}
+.count-card{
+  width:84px; padding:16px 0; text-align:center;
+}
+.count-num{font-family:'Playfair Display',serif; font-size:34px; color:var(--plum); font-weight:600;}
+.count-label{font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--leaf); margin-top:4px;}
+
+.event-card{padding:36px 28px; text-align:center; margin:40px 0;}
+.event-row{margin:14px 0; font-family:'Cormorant Garamond',serif; font-size:20px;}
+.event-row b{color:var(--plum); font-weight:600;}
+.venue{font-family:'Playfair Display',serif; font-size:24px; color:var(--plum); font-style:italic; margin:6px 0 18px;}
+
+.cta{
+  display:inline-block; margin-top:8px; padding:13px 34px;
+  border-radius:30px; text-decoration:none;
+  font-size:13px; letter-spacing:.12em; text-transform:uppercase;
+  color:#fff; background:linear-gradient(120deg,var(--plum),var(--plum-deep));
+  border:1px solid var(--gold); transition:transform .3s ease, box-shadow .3s ease, background .3s ease;
+}
+.cta:hover{transform:translateY(-2px); box-shadow:0 10px 22px rgba(74,27,45,.35); background:linear-gradient(120deg,var(--gold),#b98c46);}
+
+.footer-note{text-align:center; margin-top:60px; font-family:'Great Vibes',cursive; font-size:30px; color:var(--dusty);}
+.footer-sub{text-align:center; font-size:11px; letter-spacing:.1em; color:var(--leaf); margin-top:6px; text-transform:uppercase;}
+
+
+/* Floating music button */
+.music-btn{
+  position:fixed; right:18px; bottom:calc(18px + env(safe-area-inset-bottom,0px)); z-index:1000;
+  width:52px; height:52px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:#FFFDFD; border:1.5px solid var(--dusty2);
+  box-shadow:0 6px 18px rgba(74,27,45,.18);
+  color:var(--dusty); cursor:pointer; padding:0;
+  -webkit-tap-highlight-color:transparent;
+  transition:box-shadow .3s ease, transform .2s ease;
+}
+.music-btn:active{transform:scale(.94);}
+.music-btn svg{width:24px; height:24px; display:block; animation:musicSpin 3s linear infinite; animation-play-state:paused;}
+.music-btn.playing svg{animation-play-state:running;}
+.music-btn.playing{box-shadow:0 6px 22px rgba(216,130,157,.45);}
+@keyframes musicSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+.big-date{
+  text-align:center; margin:8px 0 34px;
+}
+.big-date .date-num{
+  font-family:'Playfair Display',serif; font-style:italic; font-weight:600;
+  font-size:clamp(44px,13vw,96px); line-height:.95; letter-spacing:.04em;
+  color:var(--plum); white-space:nowrap;
+}
+.big-date .date-sub{
+  font-family:'Cormorant Garamond',serif; font-style:italic; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--dusty); font-size:15px; margin-top:8px;
+}
+
+
+/* ===== Mobile layout fixes ===== */
+@media (max-width:600px){
+  /* Invitation sentence: always one line */
+  .kicker{white-space:nowrap; font-size:clamp(9px,2.55vw,13px); letter-spacing:.06em;}
+  .wrap{padding-left:16px; padding-right:16px;}
+
+  /* Countdown: always one horizontal row */
+  .countdown{display:flex; flex-wrap:nowrap; justify-content:center; gap:8px; margin:28px 0;}
+  .count-card{flex:1 1 0; min-width:0; width:auto; max-width:84px; padding:12px 0;}
+  .count-num{font-size:clamp(20px,6.4vw,30px);}
+  .count-label{font-size:clamp(7px,2.1vw,9px); letter-spacing:.08em;}
+}
+
+/* Bold labels */
+.kicker{font-weight:700;}
+.big-date .date-sub{font-weight:700;}
+
+.rings-img{
+  display:block; width:100%; max-width:195px; height:auto;
+  margin:-10px auto 0;
+}
+</style>
+</head>
+<body>
+
+<div class="corner tl"></div>
+<div class="corner br"></div>
+<canvas id="petals"></canvas>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker fade-up">You are joyfully invited to the wedding of</div>
+    <div class="names fade-up">Ahmed &amp; Aya</div>
+    <div class="tagline fade-up">"Two souls, one forever"</div>
+    <img class="rings-img fade-up" src="monogram-gold.png" alt="" decoding="async">
+  </div>
+
+  <div class="big-date fade-up" style="margin-top:14px;">
+    <div class="date-sub" style="margin:10px 0 -2px; line-height:1; color:var(--gold);">Save the date</div>
+    <div class="date-num">10.10.2026</div>
+  </div>
+
+  <div class="fade-up">
+    <div class="section-title">Counting Down To Forever</div>
+    <div class="countdown">
+      <div class="count-card glass"><div class="count-num" id="cd-days">00</div><div class="count-label">Days</div></div>
+      <div class="count-card glass"><div class="count-num" id="cd-hours">00</div><div class="count-label">Hours</div></div>
+      <div class="count-card glass"><div class="count-num" id="cd-mins">00</div><div class="count-label">Minutes</div></div>
+      <div class="count-card glass"><div class="count-num" id="cd-secs">00</div><div class="count-label">Seconds</div></div>
+    </div>
+  </div>
+
+  <div class="event-card glass fade-up">
+    <div class="section-title" style="margin-bottom:14px;">Join Us</div>
+    <div class="event-row"><b>Saturday &nbsp;|&nbsp; 7:00 PM</b></div>
+    <div class="divider" style="margin:20px auto;"></div>
+    <div class="venue">Fleet Club Mahrousa</div>
+    <a class="cta" href="https://maps.google.com/?q=Fleet+Club+Mahrousa" target="_blank" rel="noopener">Open in Google Maps</a>
+  </div>
+
+  <div class="footer-note fade-up">With love, Ahmed &amp; Aya</div>
+  <div class="footer-sub fade-up">We can't wait to celebrate with you</div>
+</div>
+
+<audio id="bgAudio" loop preload="metadata" playsinline>
+  <source src="wedding-music.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicBtn" class="music-btn" type="button" aria-label="Play music" aria-pressed="false">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>
+  </svg>
+</button>
+
+<script>
+// Countdown
+var target = new Date("2026-10-10T19:00:00");
+function pad(n){ return String(n).padStart(2,'0'); }
+function tick(){
+  var now = new Date();
+  var diff = target - now;
+  if(diff < 0) diff = 0;
+  var d = Math.floor(diff/86400000);
+  var h = Math.floor(diff%86400000/3600000);
+  var m = Math.floor(diff%3600000/60000);
+  var s = Math.floor(diff%60000/1000);
+  document.getElementById('cd-days').textContent = pad(d);
+  document.getElementById('cd-hours').textContent = pad(h);
+  document.getElementById('cd-mins').textContent = pad(m);
+  document.getElementById('cd-secs').textContent = pad(s);
+}
+tick(); setInterval(tick, 1000);
+
+// Background music: plays from the floating button AND from the first tap/click/
+// key press/scroll anywhere on the page (browsers may ignore scroll alone, so
+// we keep listening on every event until playback actually succeeds).
+var bgAudio = document.getElementById('bgAudio');
+var musicBtn = document.getElementById('musicBtn');
+var audioUnlocked = false;
+var unlockEvents = ['pointerup','pointerdown','mouseup','click','touchend','touchstart','touchmove','keydown','wheel','scroll'];
+function setPlaying(on){
+  musicBtn.classList.toggle('playing', on);
+  musicBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  musicBtn.setAttribute('aria-label', on ? 'Pause music' : 'Play music');
+}
+function stopUnlockListeners(){
+  audioUnlocked = true;
+  unlockEvents.forEach(function(evt){ document.removeEventListener(evt, attemptUnlock); });
+}
+function attemptUnlock(e){
+  if(audioUnlocked) return;
+  if(e && e.target && musicBtn.contains(e.target)) return; // the button handles itself
+  var p = bgAudio.play();
+  if(p && p.then){
+    p.then(function(){ stopUnlockListeners(); }).catch(function(){});
+  }
+}
+unlockEvents.forEach(function(evt){
+  document.addEventListener(evt, attemptUnlock, {passive:true});
+});
+musicBtn.addEventListener('click', function(){
+  stopUnlockListeners(); // once the button is used, it is in control
+  if(bgAudio.paused){
+    var p = bgAudio.play();
+    if(p && p.catch) p.catch(function(){ setPlaying(false); });
+  } else {
+    bgAudio.pause();
+  }
+});
+bgAudio.addEventListener('play', function(){ setPlaying(true); });
+bgAudio.addEventListener('pause', function(){ setPlaying(false); });
+
+// Pause when the user leaves the tab/browser, resume when they come back
+var resumeOnReturn = false;
+function leavePage(){
+  if(!bgAudio.paused){ resumeOnReturn = true; bgAudio.pause(); }
+}
+function returnToPage(){
+  if(resumeOnReturn){
+    resumeOnReturn = false;
+    var p = bgAudio.play();
+    if(p && p.catch) p.catch(function(){});
+  }
+}
+document.addEventListener('visibilitychange', function(){
+  if(document.hidden) leavePage(); else returnToPage();
+});
+window.addEventListener('pagehide', leavePage);
+window.addEventListener('pageshow', returnToPage);
+
+// Scroll fade-ins
+var els = document.querySelectorAll('.fade-up');
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, {threshold:.15});
+els.forEach(function(el){ obs.observe(el); });
+
+// Falling rose petals canvas
+var canvas = document.getElementById('petals');
+var ctx = canvas.getContext('2d');
+function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resize(); window.addEventListener('resize', resize);
+var petals = [];
+var colors = ['#E093AB','#D8829D','#f4c2d4','#c98aa3'];
+for(var i=0;i<18;i++){
+  petals.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    r: 5+Math.random()*6,
+    speed: .4+Math.random()*.8,
+    drift: Math.random()*1.2-.6,
+    angle: Math.random()*Math.PI*2,
+    spin: (Math.random()*.02)-.01,
+    color: colors[Math.floor(Math.random()*colors.length)]
+  });
+}
+function drawPetal(p){
+  ctx.save();
+  ctx.translate(p.x,p.y);
+  ctx.rotate(p.angle);
+  ctx.fillStyle = p.color;
+  ctx.beginPath();
+  ctx.ellipse(0,0,p.r,p.r*.6,0,0,Math.PI*2);
+  ctx.fill();
+  ctx.restore();
+}
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  petals.forEach(function(p){
+    p.y += p.speed; p.x += p.drift; p.angle += p.spin;
+    if(p.y > canvas.height+10){ p.y = -10; p.x = Math.random()*canvas.width; }
+    if(p.x > canvas.width+10) p.x = -10;
+    if(p.x < -10) p.x = canvas.width+10;
+    drawPetal(p);
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>
